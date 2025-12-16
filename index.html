@@ -20,6 +20,7 @@
             --input-bg: #fff;
         }
 
+        /* DARK MODE VARIABLES */
         body.dark-mode {
             --primary: #ecf0f1;
             --accent: #5dade2;
@@ -31,6 +32,7 @@
             --shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
+        /* Dark Mode Text Enhancements */
         body.dark-mode .card-label { color: #b0bec5 !important; }
         body.dark-mode ::placeholder { color: #aaa; opacity: 0.7; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { color: #fff; }
@@ -43,7 +45,8 @@
             color: var(--text);
             margin: 0;
             padding: 0;
-            padding-top: calc(var(--header-height) + 80px); 
+            /* Added extra padding for the save bar */
+            padding-top: calc(var(--header-height) + 70px); 
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -64,7 +67,10 @@
             padding: 10px 20px;
             transition: background 0.3s, border 0.3s;
         }
-        body.dark-mode .sticky-dashboard { background: rgba(44, 44, 44, 0.98); }
+
+        body.dark-mode .sticky-dashboard {
+            background: rgba(44, 44, 44, 0.98);
+        }
 
         /* --- SAVE SLOT BAR --- */
         .save-slot-bar {
@@ -99,7 +105,7 @@
             padding: 8px 12px;
             border-radius: 4px;
             border: none;
-            width: 200px;
+            width: 220px;
             font-weight: bold;
             color: #2c3e50;
             font-family: monospace;
@@ -315,6 +321,7 @@
         body.dark-mode .card-badge { background: #444; color: #ccc; }
         .status-complete { background: #d4edda; color: #155724; }
         .status-progress { background: #fff3cd; color: #856404; }
+        .status-error { background: #f8d7da; color: #721c24; }
         .card-progress-track { width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
         body.dark-mode .card-progress-track { background: #444; }
         .card-progress-fill { height: 100%; background: var(--accent); width: 0%; }
@@ -497,7 +504,7 @@
         </div>
 
         <!-- PHASES (Standard structure maintained) -->
-        <div class="phase-container" id="phase-1"><div class="phase-header p1-head">PHASE 1: Inspection Req <span class="phase-meta">📅 MIN 1 DAY BEFORE</span></div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-docs"><div><label class="step-title" for="p1-docs">Prepare Documents (Part)</label></div></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-mail"><div><label class="step-title" for="p1-mail">Send Inspection Request</label></div></div><div class="sub-checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-attachments"><label for="p1-attachments">Confirm Attachments</label></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button><strong>To:</strong> Fazila.Shaikh@sgs.com<br><strong>CC:</strong> Saqib.Qadeer@sgs.com, export@amrags.com<br><strong>Subject:</strong> IDEAS RECYCLING, <span class="highlight-var var-idf">IDF</span> - <span class="highlight-var var-proforma">PFI</span> - INSPECTION REQ - <span class="highlight-var var-date">DATE</span><br><br>Please see attached Documents, arrange inspection for <span class="highlight-var var-date">DATE</span>.</div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-fumigation-booking"><div><label class="step-title" for="p1-fumigation-booking">Book Fumigation (WhatsApp)</label><div class="step-detail">Contact: HASSAN SKY FUMIGATION</div></div></div></li></ul></div>
+        <div class="phase-container" id="phase-1"><div class="phase-header p1-head">PHASE 1: Inspection Req <span class="phase-meta">📅 MIN 1 DAY BEFORE</span></div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-docs"><div><label class="step-title" for="p1-docs">Prepare Documents (Part)</label></div></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-mail"><div><label class="step-title" for="p1-mail">Send Inspection Request</label></div></div><div class="sub-checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-attachments"><label for="p1-attachments">Confirm Attachments</label></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button><strong>To:</strong> Fazila.Shaikh@sgs.com<br><strong>CC:</strong> Saqib.Qadeer@sgs.com, export@amrags.com, Muhammad.ShoaibSiddiqui@sgs.com, Syed.Mahboob@sgs.com, imp-exp@amrags.com<br><strong>Subject:</strong> IDEAS RECYCLING, <span class="highlight-var var-idf">IDF</span> - <span class="highlight-var var-proforma">PFI</span> - INSPECTION REQ - <span class="highlight-var var-date">DATE</span><br><br>Please see attached Documents, arrange inspection for <span class="highlight-var var-date">DATE</span>.</div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-fumigation-booking"><div><label class="step-title" for="p1-fumigation-booking">Book Fumigation (WhatsApp)</label><div class="step-detail">Contact: HASSAN SKY FUMIGATION</div></div></div></li></ul></div>
         <div class="phase-container" id="phase-2"><div class="phase-header p2-head">PHASE 2: Fumigation & Post-Inspection</div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p2-mail"><div><label class="step-title" for="p2-mail">Send Fumigation Docs</label></div></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button>To: skyservices2k19@gmail.com<br>Subject: INV <span class="highlight-var var-invoice">INV</span> Fumigation Request<br>Please find Commercial Invoice & Packing List attached.</div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3a-docs"><div><label class="step-title" for="p3a-docs">Reply to SGS Inspection Thread</label><div class="step-detail"><span class="tag-urgent">CRITICAL</span> Mention "PART OF SHIPMENT".</div></div></div></li></ul></div>
         <div class="phase-container" id="phase-3b"><div class="phase-header p3-head">PHASE 3: COC Finalization</div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-draft"><label class="step-title" for="p3b-draft">Receive & Verify Draft</label></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-pay"><label class="step-title" for="p3b-pay">Process SGS Payment</label></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-confirm"><label class="step-title" for="p3b-confirm">Request Final COC</label></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button>COC Draft Confirmed. Payment attached. Please issue Final.</div></li></ul></div>
         
@@ -1084,24 +1091,200 @@
         }
         function updateManualName() { const n = document.getElementById('manual-fwd-name').value; const d = n.trim()===""?"Forwarder":n; document.querySelectorAll('.manual-name-display').forEach(el=>el.innerText=d); }
         
-        // Print Functions
-        function printDeclaration() {
-            const date=document.getElementById('inp-date').value||"DATE",con=document.getElementById('inp-consignee').value||"CONSIGNEE",loc=document.getElementById('inp-location').value||"LOCATION",idf=document.getElementById('inp-idf').value||"IDF",ucr=document.getElementById('inp-ucr').value||"UCR",pfi=document.getElementById('inp-proforma').value||"PFI",cntr=document.getElementById('inp-container').value||"CONTAINER";
-            const w=window.open('','','height=600,width=800');
-            w.document.write(`<html><head><style>@media print{body{font-family:Arial;font-size:12pt;margin-top:3in;}}</style></head><body style="font-family:Arial;font-size:12pt;margin-top:220pt;"><p>${date}</p><br><br><p style="text-align:center;font-weight:bold;text-decoration:underline;">DECLARATION</p><br><p style="text-align:justify;">We undertake that we import used clothing from USA, inspected by SGS Pakistan, export to M/s ${con}, ${loc} vide IDF# ${idf},</p><br><p>UCR # ${ucr}<br>PFI# : ${pfi}<br>CNTR# ${cntr}</p><br><br><br><p style="font-weight:bold;">IDEAS RECYCLING PVT LTD</p></body></html>`);
-            w.document.close();w.focus();w.print();
+        /* --- RESTORED UTILITY FUNCTIONS --- */
+
+        function updateProgress() {
+            const allBoxes = Array.from(document.querySelectorAll('.task-check'));
+            const visibleBoxes = allBoxes.filter(box => { if (box.closest('.hidden')) return false; return true; });
+            const total = visibleBoxes.length;
+            const checked = visibleBoxes.filter(box => box.checked).length;
+            const percent = total === 0 ? 0 : Math.round((checked / total) * 100);
+            
+            let lastCheckedIndex = -1;
+            visibleBoxes.forEach((box, index) => { if (box.checked) lastCheckedIndex = index; });
+            visibleBoxes.forEach(box => { const row = box.closest('.step-item'); if (row) row.classList.remove('skipped-item'); });
+            
+            const skippedNames = [];
+            if (lastCheckedIndex !== -1) {
+                for (let i = 0; i < lastCheckedIndex; i++) {
+                    if (!visibleBoxes[i].checked) {
+                        const row = visibleBoxes[i].closest('.step-item');
+                        if (row && !visibleBoxes[i].parentElement.classList.contains('sub-checkbox-wrapper')) {
+                            row.classList.add('skipped-item');
+                            let labelText = "Task";
+                            const label = document.querySelector(`label[for="${visibleBoxes[i].id}"]`);
+                            if(label) labelText = label.innerText;
+                            skippedNames.push(labelText);
+                        }
+                    }
+                }
+            }
+            
+            const statusContainer = document.getElementById('status-text');
+            const indicator = statusContainer.querySelector('.status-indicator');
+            const statusSpan = statusContainer.querySelector('span:last-child');
+            const progressBar = document.getElementById('progress-bar');
+            
+            progressBar.style.width = percent + '%';
+            document.getElementById('progress-percent').innerText = percent + '%';
+            
+            const donutCircle = document.getElementById('donut-fill');
+            const donutNum = document.getElementById('donut-num');
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (percent / 100) * circumference;
+            donutCircle.style.strokeDashoffset = offset;
+            donutNum.innerText = percent + '%';
+            
+            updatePhaseBar('phase-1', 'p1-bar', 'p1-val');
+            updatePhaseBar('phase-2', 'p2-bar', 'p2-val');
+            updatePhaseBar('phase-3b', 'p3-bar', 'p3-val');
+            updatePhaseBar('phase-4', 'p4-bar', 'p4-val');
+            
+            let statusText = "Ready to start";
+            if (percent === 100) {
+                progressBar.classList.add('complete'); progressBar.classList.remove('has-skipped'); indicator.className = 'status-indicator active'; statusSpan.innerHTML = "🎉 Shipment Process Complete!"; statusContainer.style.color = "var(--success)";
+                statusText = "🎉 Complete";
+            } else if (skippedNames.length > 0) {
+                progressBar.classList.remove('complete'); progressBar.classList.add('has-skipped'); indicator.className = 'status-indicator warning';
+                let skippedText = skippedNames.length > 1 ? `${skippedNames[0]} (+${skippedNames.length-1})` : skippedNames[0];
+                const firstUnchecked = visibleBoxes.find(box => !box.checked);
+                let nextStepText = "Done";
+                if(firstUnchecked) { const label = document.querySelector(`label[for="${firstUnchecked.id}"]`); if(label) nextStepText = label.innerText; }
+                statusSpan.innerHTML = `<span class="text-warning">⚠️ Skipped: ${skippedText}</span> <span style="color:#bdc3c7">|</span> Next: ${nextStepText}`;
+                statusContainer.style.color = "var(--primary)";
+                statusText = `⚠️ Skipped: ${skippedNames[0]}`;
+            } else {
+                progressBar.classList.remove('complete'); progressBar.classList.remove('has-skipped'); indicator.className = 'status-indicator active';
+                const firstUnchecked = visibleBoxes.find(box => !box.checked);
+                if (firstUnchecked) { 
+                    const label = document.querySelector(`label[for="${firstUnchecked.id}"]`); 
+                    let labelText = label ? label.innerText : "Next Step"; 
+                    statusSpan.innerHTML = "Next Step: " + labelText; 
+                    statusText = "Next: " + labelText;
+                } else { 
+                    statusSpan.innerHTML = "Ready to start"; 
+                }
+                statusContainer.style.color = "var(--primary)";
+            }
+
+            // AUTO-SAVE METADATA FOR DASHBOARD
+            if (CURRENT_SLOT !== 'ALL') {
+                const metaKey = getStoragePrefix() + 'meta';
+                const metaData = {
+                    percent: percent,
+                    status: statusText,
+                    lastUpdated: Date.now()
+                };
+                localStorage.setItem(metaKey, JSON.stringify(metaData));
+            }
         }
-        function printUndertaking() {
-            const date=document.getElementById('inp-date').value||"DATE",con=document.getElementById('inp-consignee').value||"CONSIGNEE",idf=document.getElementById('inp-idf').value||"IDF",ucr=document.getElementById('inp-ucr').value||"UCR",pfi=document.getElementById('inp-proforma').value||"PFI",cntr=document.getElementById('inp-container').value||"CONTAINER",pkgs=document.getElementById('inp-com-qty').value||"PACKAGES";
-            const w=window.open('','','height=600,width=800');
-            w.document.write(`<html><head><style>@media print{body{font-family:Arial;font-size:12pt;margin-top:1.5in;}}</style></head><body style="font-family:Arial;font-size:12pt;margin-top:100pt;"><p>${date}</p><br><p>TO,<br><strong>SGS PAKISTAN (PRIVATE) LIMITED</strong><br>H-3/3, SECTOR 5, KORANGI INDUSTRIAL AREA,<br>KARACHI-74900, PAKISTAN</p><br><p><strong>SUBJECT: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNDERTAKING LETTER</strong></p><br><p>We declare that this shipment of Mombasa,</p><ol><li>No package shall contain used undergarments, sleepwear, bath towels, hospital textiles, high visibility garments, handkerchiefs and facemasks.</li><li>Used textile products in the consignment shall be free from prohibited materials such as asbestos mineral wool and erionite.</li><li>For used footwear, no prohibited goods included in the consignment such as Used slippers and ORTHOPEDIC footwear.</li></ol><br><p><strong>IDF#</strong> ${idf},<br><strong>UCR# :</strong> ${ucr}<br><strong>PFI# :</strong> ${pfi}<br><strong>CNTR# :</strong> ${cntr}<br><strong>IMPORTER:</strong> ${con}<br><strong>NO. OF PACKAGES:</strong> ${pkgs}</p><br><br><p>THANKS & REGARDS</p><br><br><p style="font-weight:bold;">IDEAS RECYCLING PVT LTD,</p></body></html>`);
-            w.document.close();w.focus();w.print();
+
+        function updatePhaseBar(phaseId, barId, valId) {
+            const container = document.getElementById(phaseId);
+            if (container.classList.contains('hidden')) { document.getElementById(barId).style.width = '0%'; document.getElementById(valId).innerText = 'N/A'; return; }
+            const boxes = Array.from(container.querySelectorAll('.task-check'));
+            const visibleBoxes = boxes.filter(box => { if (box.closest('.hidden')) return false; return true; });
+            if (visibleBoxes.length === 0) { document.getElementById(barId).style.width = '0%'; document.getElementById(valId).innerText = '0%'; return; }
+            const checked = visibleBoxes.filter(b => b.checked).length;
+            const pct = Math.round((checked / visibleBoxes.length) * 100);
+            document.getElementById(barId).style.width = pct + '%'; document.getElementById(valId).innerText = pct + '%';
         }
-        function printShoesUndertaking() {
-            const date=document.getElementById('inp-date').value||"DATE",con=document.getElementById('inp-consignee').value||"CONSIGNEE",loc=document.getElementById('inp-location').value||"LOCATION",idf=document.getElementById('inp-idf').value||"IDF",ucr=document.getElementById('inp-ucr').value||"UCR",pfi=document.getElementById('inp-proforma').value||"PFI",cntr=document.getElementById('inp-container').value||"CONTAINER",pkgs=document.getElementById('inp-com-qty').value||"PACKAGES";
-            const w=window.open('','','height=600,width=800');
-            w.document.write(`<html><head><style>@media print{body{font-family:Arial;font-size:12pt;margin-top:1.5in;}}</style></head><body style="font-family:Arial;font-size:12pt;margin-top:100pt;"><p>${date}</p><br><p>TO,<br><strong>SGS PAKISTAN (PRIVATE) LIMITED</strong><br>H-3/3, SECTOR 5, KORANGI INDUSTRIAL AREA,<br>KARACHI-74900, PAKISTAN</p><br><p><strong>SUBJECT: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNDERTAKING LETTER</strong></p><br><p style="text-align:justify;">We declares that this shipment of ${loc} has no prohibited items in used shoes such as sandals, used slippers, used indoor footwear. No prohibited goods included in the consignment such as: No consignment shall contain used slippers and orthopedic.</p><br><p><strong>IDF#</strong> ${idf},<br><strong>UCR# :</strong> ${ucr}<br><strong>PFI# :</strong> ${pfi}<br><strong>CNTR# :</strong> ${cntr}<br><strong>IMPORTER:</strong> ${con}<br><strong>NO. OF PACKAGES:</strong> ${pkgs}</p><br><br><p>THANKS & REGRADS</p><br><br><p style="font-weight:bold;">IDEAS RECYCLING PVT LTD,</p></body></html>`);
-            w.document.close();w.focus();w.print();
+
+        function updateCountdown() {
+            const dateInput = document.getElementById('inp-date').value;
+            const display = document.getElementById('countdown-timer');
+            if (!dateInput) { display.innerHTML = "Set Inspection Date"; display.className = "countdown-display"; return; }
+            const parts = dateInput.split('-');
+            if (parts.length !== 3) { display.innerHTML = "Invalid Date Format"; return; }
+            const day = parseInt(parts[0]); const monthStr = parts[1]; const year = parseInt(parts[2]);
+            const months = { 'january': 0, 'jan': 0, 'february': 1, 'feb': 1, 'march': 2, 'mar': 2, 'april': 3, 'apr': 3, 'may': 4, 'june': 5, 'jun': 5, 'july': 6, 'jul': 6, 'august': 7, 'aug': 7, 'september': 8, 'sep': 8, 'sept': 8, 'october': 9, 'oct': 9, 'november': 10, 'nov': 10, 'december': 11, 'dec': 11 };
+            const monthIndex = months[monthStr.toLowerCase()];
+            if (monthIndex === undefined) { display.innerHTML = "Check Month Spelling"; return; }
+            const targetDate = new Date(year, monthIndex, day);
+            const today = new Date(); today.setHours(0,0,0,0);
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays < 0) { display.innerHTML = `Inspection Passed (${Math.abs(diffDays)} days ago)`; display.className = "countdown-display"; }
+            else if (diffDays === 0) { display.innerHTML = "🚨 Inspection is TODAY!"; display.className = "countdown-display urgent"; }
+            else if (diffDays <= 3) { display.innerHTML = `⚠️ Only ${diffDays} Days Left!`; display.className = "countdown-display urgent"; }
+            else { display.innerHTML = `📅 ${diffDays} Days Remaining`; display.className = "countdown-display"; }
+        }
+
+        function updateVars() {
+            const mapping = { 'inp-date': 'var-date', 'inp-idf': 'var-idf', 'inp-ucr': 'var-ucr', 'inp-proforma': 'var-proforma', 'inp-invoice': 'var-invoice', 'inp-container': 'var-container', 'inp-booking': 'var-booking', 'inp-consignee': 'var-consignee' };
+            for (const [inputId, className] of Object.entries(mapping)) {
+                const val = document.getElementById(inputId).value;
+                if (val.trim() !== "") {
+                    document.querySelectorAll('.' + className).forEach(el => {
+                        el.innerText = val;
+                        el.style.backgroundColor = '#fff9c4';
+                        setTimeout(() => { el.style.backgroundColor = '#fffde7'; }, 500);
+                    });
+                }
+            }
+        }
+        
+        function copyToClipboard(button) {
+            // Robust text extraction
+            var template = button.parentElement;
+            var clone = template.cloneNode(true);
+            var btnInClone = clone.querySelector('.copy-btn');
+            if (btnInClone) btnInClone.remove();
+            var text = clone.innerText.trim();
+
+            // Success feedback handler
+            function handleSuccess() {
+                var originalText = "📋 Copy"; // Reset to default icon just in case
+                if(button.dataset.originalText) originalText = button.dataset.originalText;
+                else button.dataset.originalText = button.innerText;
+
+                button.innerText = "Copied!"; 
+                button.style.background = "#27ae60"; 
+                button.style.color = "white";
+                
+                setTimeout(function() { 
+                    button.innerText = originalText; 
+                    button.style.background = "white"; 
+                    button.style.color = "#2c3e50"; 
+                }, 2000);
+            }
+
+            // Method 1: Try modern Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(handleSuccess).catch(function(err) {
+                    console.warn('Clipboard API blocked, trying fallback...', err);
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+
+            // Method 2: Fallback using textarea and execCommand
+            function fallbackCopy(textToCopy) {
+                var textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.position = "fixed";
+                
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    var successful = document.execCommand('copy');
+                    if (successful) {
+                        handleSuccess();
+                    } else {
+                        alert("Clipboard access denied. Please copy manually.");
+                    }
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                    alert("Clipboard access denied. Please copy manually.");
+                }
+                
+                document.body.removeChild(textArea);
+            }
         }
     </script>
 </body>
