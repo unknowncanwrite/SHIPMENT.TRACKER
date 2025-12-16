@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipment Manager (Cloud Sync)</title>
+    <title>Shipment Documentation Manager</title>
+    <!-- Web App Meta Tags for Mobile -->
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <style>
         :root {
             --primary: #2c3e50;
@@ -20,7 +24,6 @@
             --input-bg: #fff;
         }
 
-        /* DARK MODE VARIABLES */
         body.dark-mode {
             --primary: #ecf0f1;
             --accent: #5dade2;
@@ -32,7 +35,6 @@
             --shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        /* Dark Mode Text Enhancements */
         body.dark-mode .card-label { color: #b0bec5 !important; }
         body.dark-mode ::placeholder { color: #aaa; opacity: 0.7; }
         body.dark-mode input, body.dark-mode select, body.dark-mode textarea { color: #fff; }
@@ -45,12 +47,11 @@
             color: var(--text);
             margin: 0;
             padding: 0;
-            /* Added extra padding for the save bar */
             padding-top: calc(var(--header-height) + 70px); 
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- STICKY PROGRESS DASHBOARD --- */
+        /* --- STICKY HEADER --- */
         .sticky-dashboard {
             position: fixed;
             top: 0;
@@ -67,10 +68,7 @@
             padding: 10px 20px;
             transition: background 0.3s, border 0.3s;
         }
-
-        body.dark-mode .sticky-dashboard {
-            background: rgba(44, 44, 44, 0.98);
-        }
+        body.dark-mode .sticky-dashboard { background: rgba(44, 44, 44, 0.98); }
 
         /* --- SAVE SLOT BAR --- */
         .save-slot-bar {
@@ -132,42 +130,10 @@
         }
         .btn-highlight:hover { background: #2980b9; transform: translateY(-1px); }
 
-        .btn-cloud {
-            background: #8e44ad;
-            border-color: #732d91;
-            display: flex; align-items: center; gap: 5px;
-        }
-        .btn-cloud:hover { background: #9b59b6; }
-
-        /* --- CLOUD MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .modal-content {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid var(--border);
-        }
-        .modal-content h2 { margin-top: 0; color: var(--primary); }
-        .modal-input {
-            width: 100%; padding: 10px; margin-bottom: 15px;
-            border: 1px solid var(--border); border-radius: 6px;
-            background: var(--input-bg); color: var(--text);
-        }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
-
         /* --- LAYOUTS --- */
         .dashboard-wrapper { width: 100%; max-width: 900px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .dashboard-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
-        /* Status & Progress */
         .sticky-print-btn {
             background: var(--primary); color: white; border: none; width: 50px; height: 50px;
             border-radius: 50%; font-size: 1.5rem; cursor: pointer;
@@ -348,29 +314,6 @@
 </head>
 <body>
 
-    <!-- CLOUD CONFIG MODAL -->
-    <div id="cloud-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>☁️ GitHub Sync Setup</h2>
-            <p style="font-size:0.9em; color:#666; margin-bottom:15px;">Enter your GitHub details to sync data across devices.</p>
-            
-            <label style="font-weight:bold; display:block; margin-bottom:5px;">Personal Access Token (PAT)</label>
-            <input type="password" id="gh-token" class="modal-input" placeholder="ghp_xxxxxxxxxxxx">
-            
-            <label style="font-weight:bold; display:block; margin-bottom:5px;">GitHub Username</label>
-            <input type="text" id="gh-user" class="modal-input" placeholder="username">
-            
-            <label style="font-weight:bold; display:block; margin-bottom:5px;">Repository Name</label>
-            <input type="text" id="gh-repo" class="modal-input" placeholder="my-shipment-tracker">
-            
-            <div class="modal-actions">
-                <button class="btn" onclick="closeCloudModal()">Cancel</button>
-                <button class="btn btn-secondary" onclick="saveCloudConfig()">💾 Save & Connect</button>
-            </div>
-            <p id="gh-status-msg" style="margin-top:10px; font-weight:bold; text-align:center;"></p>
-        </div>
-    </div>
-
     <!-- STICKY DASHBOARD -->
     <div class="sticky-dashboard">
         <div class="dashboard-wrapper">
@@ -390,7 +333,7 @@
         </div>
     </div>
 
-    <!-- SAVE SLOT BAR -->
+    <!-- SAVE SLOT BAR (FIXED TOP) -->
     <div class="save-slot-bar">
         <div class="slot-controls-group">
             <label>📂 Shipment ID:</label>
@@ -400,7 +343,6 @@
             </datalist>
             <button class="slot-btn" onclick="loadSlot()">🔄 Load</button>
             <button class="slot-btn btn-highlight" onclick="goToOverview()">🏠 Overview</button>
-            <button class="slot-btn btn-cloud" onclick="openCloudModal()">☁️ Cloud Setup</button>
         </div>
         <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Theme</button>
     </div>
@@ -416,7 +358,7 @@
         </div>
 
         <div class="dashboard-controls">
-            <input type="text" id="dash-search" placeholder="🔍 Search Invoice, Customer, Container..." onkeyup="renderDashboard()">
+            <input type="text" id="dash-search" placeholder="🔍 Search Invoice, Customer, Container, Loading Date or ETA..." onkeyup="renderDashboard()">
             <select id="dash-sort" onchange="renderDashboard()">
                 <option value="lastUpdated">📅 Sort by Last Updated</option>
                 <option value="loadingDate">🚚 Sort by Loading Date</option>
@@ -426,10 +368,10 @@
         </div>
 
         <div class="dashboard-actions">
-            <button class="btn btn-secondary" onclick="syncFromCloud()" id="btn-pull">☁️ Pull from Cloud</button>
-            <button class="btn btn-secondary" onclick="syncToCloud()" id="btn-push">☁️ Push to Cloud</button>
             <button class="btn btn-portable" onclick="savePortable()">💾 Backup to File</button>
-            <button class="btn btn-secondary" onclick="exportSummaryCSV()">📊 Export CSV</button>
+            <button class="btn btn-secondary" onclick="exportAllData()">💾 Export All Data (JSON)</button>
+            <button class="btn btn-secondary" onclick="triggerDashboardImport()">📂 Import Data (JSON)</button>
+            <input type="file" id="dashboard-file-input" style="display:none" onchange="importAllData(this)">
         </div>
 
         <div id="overview-grid" class="overview-grid"></div>
@@ -437,7 +379,6 @@
 
     <!-- CHECKLIST CONTAINER -->
     <div id="checklist-container" class="container">
-        <!-- (Existing Checklist HTML Structure kept exactly same for logic compatibility) -->
         <div class="header-actions">
             <h1>Shipment Checklist</h1>
             <div class="btn-group">
@@ -497,13 +438,12 @@
                 <div class="input-group"><label>Container Number</label><input type="text" id="inp-container" placeholder="CAAUxxxxxxx" oninput="updateVars()"></div>
                 <div class="input-group"><label>Booking Number</label><input type="text" id="inp-booking" placeholder="EBKGxxxxxxxx" oninput="updateVars()"></div>
             </div>
-            <!-- Extra rows from before -->
             <div class="grid-row-4 commercial-row"><div class="section-label">Commercial Details</div><div class="input-group"><label>Commercial Invoice #</label><input type="text" id="inp-invoice-dup"></div><div class="input-group"><label>Commercial Qty</label><input type="text" id="inp-com-qty"></div><div class="input-group"><label>Commercial Net Weight</label><input type="text" id="inp-com-nw"></div><div class="input-group"><label>Commercial Gross Weight</label><input type="text" id="inp-com-gw"></div></div>
             <div class="grid-row-4 actual-row"><div class="section-label">Actual Details (Loaded)</div><div class="input-group"><label>Actual Invoice #</label><input type="text" id="inp-act-invoice"></div><div class="input-group"><label>Actual Qty Loaded</label><input type="text" id="inp-act-qty"></div><div class="input-group"><label>Actual Net Weight</label><input type="text" id="inp-act-nw"></div><div class="input-group"><label>Actual Gross Weight</label><input type="text" id="inp-act-gw"></div></div>
             <div class="invoice-status-bar"><input type="checkbox" id="actual-invoice-status"><label for="actual-invoice-status">Actual Commercial Invoice Sent to Customer<span class="q-mark">?</span></label></div>
         </div>
 
-        <!-- PHASES (Standard structure maintained) -->
+        <!-- PHASES -->
         <div class="phase-container" id="phase-1"><div class="phase-header p1-head">PHASE 1: Inspection Req <span class="phase-meta">📅 MIN 1 DAY BEFORE</span></div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-docs"><div><label class="step-title" for="p1-docs">Prepare Documents (Part)</label></div></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-mail"><div><label class="step-title" for="p1-mail">Send Inspection Request</label></div></div><div class="sub-checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-attachments"><label for="p1-attachments">Confirm Attachments</label></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button><strong>To:</strong> Fazila.Shaikh@sgs.com<br><strong>CC:</strong> Saqib.Qadeer@sgs.com, export@amrags.com, Muhammad.ShoaibSiddiqui@sgs.com, Syed.Mahboob@sgs.com, imp-exp@amrags.com<br><strong>Subject:</strong> IDEAS RECYCLING, <span class="highlight-var var-idf">IDF</span> - <span class="highlight-var var-proforma">PFI</span> - INSPECTION REQ - <span class="highlight-var var-date">DATE</span><br><br>Please see attached Documents, arrange inspection for <span class="highlight-var var-date">DATE</span>.</div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p1-fumigation-booking"><div><label class="step-title" for="p1-fumigation-booking">Book Fumigation (WhatsApp)</label><div class="step-detail">Contact: HASSAN SKY FUMIGATION</div></div></div></li></ul></div>
         <div class="phase-container" id="phase-2"><div class="phase-header p2-head">PHASE 2: Fumigation & Post-Inspection</div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p2-mail"><div><label class="step-title" for="p2-mail">Send Fumigation Docs</label></div></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button>To: skyservices2k19@gmail.com<br>Subject: INV <span class="highlight-var var-invoice">INV</span> Fumigation Request<br>Please find Commercial Invoice & Packing List attached.</div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3a-docs"><div><label class="step-title" for="p3a-docs">Reply to SGS Inspection Thread</label><div class="step-detail"><span class="tag-urgent">CRITICAL</span> Mention "PART OF SHIPMENT".</div></div></div></li></ul></div>
         <div class="phase-container" id="phase-3b"><div class="phase-header p3-head">PHASE 3: COC Finalization</div><ul class="step-list"><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-draft"><label class="step-title" for="p3b-draft">Receive & Verify Draft</label></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-pay"><label class="step-title" for="p3b-pay">Process SGS Payment</label></div></li><li class="step-item"><div class="checkbox-wrapper"><input type="checkbox" class="task-check" id="p3b-confirm"><label class="step-title" for="p3b-confirm">Request Final COC</label></div><div class="email-template"><button class="copy-btn" onclick="copyToClipboard(this)">📋 Copy</button>COC Draft Confirmed. Payment attached. Please issue Final.</div></li></ul></div>
@@ -543,7 +483,6 @@
 
     <script>
         let CURRENT_SLOT = 'ALL'; 
-        let GITHUB_CONFIG = JSON.parse(localStorage.getItem('github_config')) || null;
         
         function getStoragePrefix(slot = CURRENT_SLOT) { return 'shipment_manager_v2_' + slot + '_'; }
 
@@ -565,131 +504,7 @@
             document.querySelectorAll('input[name="shipment-type"]').forEach(el => el.addEventListener('change', toggleShipmentType));
             document.querySelectorAll('input[name="forwarder"], input[name="manual-method"]').forEach(el => el.addEventListener('change', toggleForwarder));
             document.querySelectorAll('.task-check').forEach(box => box.addEventListener('change', updateProgress));
-
-            // Setup Cloud UI
-            if(GITHUB_CONFIG) {
-                document.querySelector('.btn-cloud').innerText = "☁️ Cloud Active";
-                document.querySelector('.btn-cloud').style.background = "#27ae60";
-            }
         });
-
-        /* --- CLOUD SYNC LOGIC --- */
-        function openCloudModal() {
-            document.getElementById('cloud-modal').classList.remove('hidden');
-            if(GITHUB_CONFIG) {
-                document.getElementById('gh-user').value = GITHUB_CONFIG.owner;
-                document.getElementById('gh-repo').value = GITHUB_CONFIG.repo;
-                document.getElementById('gh-token').value = GITHUB_CONFIG.token;
-            }
-        }
-        function closeCloudModal() { document.getElementById('cloud-modal').classList.add('hidden'); }
-        
-        function saveCloudConfig() {
-            const token = document.getElementById('gh-token').value.trim();
-            const owner = document.getElementById('gh-user').value.trim();
-            const repo = document.getElementById('gh-repo').value.trim();
-            
-            if(!token || !owner || !repo) { alert("Please fill all fields"); return; }
-            
-            GITHUB_CONFIG = { token, owner, repo, path: 'shipment_db.json' };
-            localStorage.setItem('github_config', JSON.stringify(GITHUB_CONFIG));
-            document.getElementById('gh-status-msg').innerText = "Credentials Saved! Try pushing/pulling.";
-            setTimeout(closeCloudModal, 1500);
-            document.querySelector('.btn-cloud').innerText = "☁️ Cloud Active";
-            document.querySelector('.btn-cloud').style.background = "#27ae60";
-        }
-
-        // Base64 helpers for UTF-8
-        function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
-        function b64_to_utf8(str) { return decodeURIComponent(escape(window.atob(str))); }
-
-        async function syncToCloud() {
-            if(!GITHUB_CONFIG) { openCloudModal(); return; }
-            const btn = document.getElementById('btn-push');
-            const originalText = btn.innerText;
-            btn.innerText = "⏳ Pushing...";
-
-            // 1. Gather ALL LocalStorage Data
-            const allData = {};
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('shipment_manager_v2_') || key === 'shipment_manager_last_slot') {
-                    allData[key] = localStorage.getItem(key);
-                }
-            }
-            const content = JSON.stringify(allData);
-            const encodedContent = utf8_to_b64(content);
-
-            try {
-                // 2. Get current SHA
-                const getUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
-                const getRes = await fetch(getUrl, { 
-                    headers: { 'Authorization': `token ${GITHUB_CONFIG.token}` } 
-                });
-                
-                let sha = null;
-                if(getRes.ok) {
-                    const getData = await getRes.json();
-                    sha = getData.sha;
-                }
-
-                // 3. PUT file
-                const putBody = {
-                    message: "Sync from Shipment App",
-                    content: encodedContent,
-                    sha: sha 
-                };
-                
-                const putRes = await fetch(getUrl, {
-                    method: 'PUT',
-                    headers: { 
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(putBody)
-                });
-
-                if(putRes.ok) {
-                    alert("✅ Successfully pushed to GitHub!");
-                } else {
-                    const err = await putRes.json();
-                    alert("❌ GitHub Error: " + (err.message || "Unknown error"));
-                }
-            } catch(e) {
-                alert("❌ Network Error: " + e.message);
-            } finally {
-                btn.innerText = originalText;
-            }
-        }
-
-        async function syncFromCloud() {
-            if(!GITHUB_CONFIG) { openCloudModal(); return; }
-            const btn = document.getElementById('btn-pull');
-            const originalText = btn.innerText;
-            btn.innerText = "⏳ Pulling...";
-
-            try {
-                const getUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
-                const res = await fetch(getUrl, { headers: { 'Authorization': `token ${GITHUB_CONFIG.token}` } });
-                
-                if(!res.ok) throw new Error("File not found or access denied.");
-                
-                const data = await res.json();
-                const content = b64_to_utf8(data.content);
-                const json = JSON.parse(content);
-
-                // Restore
-                Object.keys(json).forEach(k => localStorage.setItem(k, json[k]));
-                
-                alert("✅ Sync Complete! Refreshing...");
-                populateSlotSuggestions();
-                renderDashboard();
-            } catch(e) {
-                alert("❌ Pull Failed: " + e.message);
-            } finally {
-                btn.innerText = originalText;
-            }
-        }
 
         /* --- STANDARD APP LOGIC --- */
         function populateSlotSuggestions() {
@@ -960,33 +775,6 @@
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('shipment_theme_global', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        }
-        function exportSummaryCSV() {
-            const slots = new Set();
-            const prefix = 'shipment_manager_v2_';
-            for (let i = 0; i < localStorage.length; i++) {
-                if (localStorage.key(i).startsWith(prefix)) slots.add(localStorage.key(i).split('_')[3]);
-            }
-            let csvContent = "data:text/csv;charset=utf-8,Shipment ID,Customer,Container,Loading Date,ETA,Status,Progress,Last Updated\n";
-            slots.forEach(slot => {
-                if(slot==='undefined'||slot==='null'||slot==='ALL') return;
-                const p = getStoragePrefix(slot);
-                const customer = (localStorage.getItem(p + 'inp-customer') || '').replace(/,/g, ' ');
-                const container = (localStorage.getItem(p + 'inp-container') || '').replace(/,/g, ' ');
-                const loadDate = localStorage.getItem(p + 'inp-date') || '';
-                const eta = localStorage.getItem(p + 'inp-eta') || '';
-                let meta = { percent: 0, status: 'N/A', lastUpdated: 0 };
-                try { const m = localStorage.getItem(p + 'meta'); if(m) meta = JSON.parse(m); } catch(e){}
-                const dateStr = meta.lastUpdated ? new Date(meta.lastUpdated).toLocaleDateString() : '';
-                csvContent += `${slot},${customer},${container},${loadDate},${eta},${meta.status.replace(/,/g,' ')},${meta.percent}%,${dateStr}\n`;
-            });
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "shipments_summary.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         }
         function savePortable() {
             const allData = {};
@@ -1285,6 +1073,24 @@
                 
                 document.body.removeChild(textArea);
             }
+        }
+
+        function printDeclaration() {
+            const date = document.getElementById('inp-date').value || "DATE"; const consignee = document.getElementById('inp-consignee').value || "CONSIGNEE"; const location = document.getElementById('inp-location').value || "LOCATION"; const idf = document.getElementById('inp-idf').value || "IDF"; const ucr = document.getElementById('inp-ucr').value || "UCR"; const pfi = document.getElementById('inp-proforma').value || "PFI"; const container = document.getElementById('inp-container').value || "CONTAINER";
+            const content = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Declaration</title><style>@media print { body { font-family: Arial; font-size: 12pt; margin-top: 3in; } }</style></head><body style="font-family: Arial; font-size: 12pt; margin-top: 220pt;"><p>${date}</p><br><br><p style="text-align: center; font-weight: bold; text-decoration: underline;">DECLARATION</p><br><p style="text-align: justify;">We undertake that we import used clothing from USA, inspected by SGS Pakistan, export to M/s ${consignee}, ${location} vide IDF# ${idf}, </p><br><p>UCR # ${ucr}<br>PFI# : ${pfi}<br>CNTR# ${container}</p><br><br><br><p style="font-weight: bold;">IDEAS RECYCLING PVT LTD</p></body></html>`;
+            const printWindow = window.open('', '', 'height=600,width=800'); printWindow.document.write(content); printWindow.document.close(); printWindow.focus(); printWindow.print();
+        }
+
+        function printUndertaking() {
+            const date = document.getElementById('inp-date').value || "DATE"; const consignee = document.getElementById('inp-consignee').value || "CONSIGNEE"; const idf = document.getElementById('inp-idf').value || "IDF"; const ucr = document.getElementById('inp-ucr').value || "UCR"; const pfi = document.getElementById('inp-proforma').value || "PFI"; const container = document.getElementById('inp-container').value || "CONTAINER"; const packages = document.getElementById('inp-com-qty').value || "PACKAGES";
+            const content = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Undertaking Letter</title><style>@media print { body { font-family: Arial; font-size: 12pt; margin-top: 1.5in; } }</style></head><body style="font-family: Arial; font-size: 12pt; margin-top: 100pt;"><p>${date}</p><br><p>TO,<br><strong>SGS PAKISTAN (PRIVATE) LIMITED</strong><br>H-3/3, SECTOR 5, KORANGI INDUSTRIAL AREA,<br>KARACHI-74900, PAKISTAN</p><br><p><strong>SUBJECT: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNDERTAKING LETTER</strong></p><br><p>We declare that this shipment of Mombasa,</p><ol><li>No package shall contain used undergarments, sleepwear, bath towels, hospital textiles, high visibility garments, handkerchiefs and facemasks.</li><li>Used textile products in the consignment shall be free from prohibited materials such as asbestos mineral wool and erionite.</li><li>For used footwear, no prohibited goods included in the consignment such as Used slippers and ORTHOPEDIC footwear.</li></ol><br><p><strong>IDF#</strong> ${idf},<br><strong>UCR# :</strong> ${ucr}<br><strong>PFI# :</strong> ${pfi}<br><strong>CNTR# :</strong> ${container}<br><strong>IMPORTER:</strong> ${consignee}<br><strong>NO. OF PACKAGES:</strong> ${packages}</p><br><br><p>THANKS & REGARDS</p><br><br><p style="font-weight: bold;">IDEAS RECYCLING PVT LTD,</p></body></html>`;
+            const printWindow = window.open('', '', 'height=600,width=800'); printWindow.document.write(content); printWindow.document.close(); printWindow.focus(); printWindow.print();
+        }
+
+        function printShoesUndertaking() {
+            const date = document.getElementById('inp-date').value || "DATE"; const consignee = document.getElementById('inp-consignee').value || "CONSIGNEE"; const location = document.getElementById('inp-location').value || "LOCATION"; const idf = document.getElementById('inp-idf').value || "IDF"; const ucr = document.getElementById('inp-ucr').value || "UCR"; const pfi = document.getElementById('inp-proforma').value || "PFI"; const container = document.getElementById('inp-container').value || "CONTAINER"; const packages = document.getElementById('inp-com-qty').value || "PACKAGES";
+            const content = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Shoes Undertaking Letter</title><style>@media print { body { font-family: Arial; font-size: 12pt; margin-top: 1.5in; } }</style></head><body style="font-family: Arial; font-size: 12pt; margin-top: 100pt;"><p>${date}</p><br><p>TO,<br><strong>SGS PAKISTAN (PRIVATE) LIMITED</strong><br>H-3/3, SECTOR 5, KORANGI INDUSTRIAL AREA,<br>KARACHI-74900, PAKISTAN</p><br><p><strong>SUBJECT: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNDERTAKING LETTER</strong></p><br><p style="text-align: justify;">We declares that this shipment of ${location} has no prohibited items in used shoes such as sandals, used slippers, used indoor footwear. No prohibited goods included in the consignment such as: No consignment shall contain used slippers and orthopedic.</p><br><p><strong>IDF#</strong> ${idf},<br><strong>UCR# :</strong> ${ucr}<br><strong>PFI# :</strong> ${pfi}<br><strong>CNTR# :</strong> ${container}<br><strong>IMPORTER:</strong> ${consignee}<br><strong>NO. OF PACKAGES:</strong> ${packages}</p><br><br><p>THANKS & REGRADS</p><br><br><p style="font-weight: bold;">IDEAS RECYCLING PVT LTD,</p></body></html>`;
+            const printWindow = window.open('', '', 'height=600,width=800'); printWindow.document.write(content); printWindow.document.close(); printWindow.focus(); printWindow.print();
         }
     </script>
 </body>
